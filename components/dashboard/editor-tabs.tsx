@@ -46,14 +46,12 @@ export function EditorTabs() {
         >
           <FileText className="h-4 w-4" />
           <span>{tab.title}</span>
-          <Button
-            variant="ghost"
-            size="icon"
-            className="h-4 w-4 ml-1 opacity-60 hover:opacity-100"
+          <div
+            className="h-4 w-4 ml-1 opacity-60 hover:opacity-100 cursor-pointer flex items-center justify-center"
             onClick={(e) => handleCloseTab(tab.id, e)}
           >
             <X className="h-3 w-3" />
-          </Button>
+          </div>
         </button>
       ))}
     </div>
