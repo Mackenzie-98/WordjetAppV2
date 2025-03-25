@@ -1,6 +1,6 @@
 import * as React from "react"
 import Link from "next/link"
-import { ChevronRight, Home } from "lucide-react"
+import { ChevronRight, LayoutDashboardIcon } from "lucide-react"
 import { cn } from "@/lib/utils"
 
 interface PathBreadcrumbProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -24,8 +24,8 @@ export function PathBreadcrumb({ segments, className, ...props }: PathBreadcrumb
             href="/dashboard"
             className="flex items-center hover:text-foreground transition-colors"
           >
-            <Home className="h-4 w-4" />
-            <span className="sr-only">Home</span>
+            <LayoutDashboardIcon className="h-4 w-4" />
+            <span className="sr-only">Dashboard</span>
           </Link>
         </li>
         {segments.map((segment, index) => (

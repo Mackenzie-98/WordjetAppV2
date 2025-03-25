@@ -15,13 +15,13 @@ export function ProgressBar({ currentStep, className }: ProgressBarProps) {
   const currentDisplayStep = currentStep > 0 ? currentStep - 1 : 0
 
   const stepIcons = [
-    <FileText key="type" className="h-5 w-5" />,
+    <FileText key="content-details" className="h-5 w-5" />,
     <Users key="audience" className="h-5 w-5" />,
     <Palette key="style" className="h-5 w-5" />,
     <FileCheck key="brief" className="h-5 w-5" />,
   ]
 
-  const stepLabels = ["Content Type", "Audience", "Style", "Brief"]
+  const stepLabels = ["Content Details", "Audience", "Style", "Brief"]
 
   return (
     <div className={cn("w-full", className)}>

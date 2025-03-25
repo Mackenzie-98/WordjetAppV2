@@ -2,8 +2,21 @@
 
 import Link from "next/link"
 import { useRouter } from "next/navigation"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
+import { 
+  Button, 
+  Card, 
+  CardContent, 
+  CardDescription, 
+  CardFooter, 
+  CardHeader, 
+  CardTitle, 
+  Badge,
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger
+} from "@/lib/design-system"
 import { 
   PlusCircle, 
   FileText, 
@@ -16,14 +29,6 @@ import {
   Star,
   Pencil
 } from "lucide-react"
-import { Badge } from "@/components/ui/badge"
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
 
 export default function DashboardPage() {
   // Mock data for projects - in a real app, this would come from an API or database
@@ -84,7 +89,9 @@ export default function DashboardPage() {
   return (
     <div className="p-6 max-w-6xl mx-auto">
       <div className="flex items-center justify-between mb-6">
-        <h1 className="text-2xl font-semibold">Dashboard</h1>
+        <div className="flex items-center gap-4">
+          <h1 className="text-2xl font-semibold">Dashboard</h1>
+        </div>
         <Link href="/create">
           <Button size="sm" className="gap-1.5">
             <PlusCircle className="h-4 w-4" />

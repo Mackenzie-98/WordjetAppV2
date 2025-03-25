@@ -1,12 +1,13 @@
 "use client"
 
 import type { ReactNode } from "react"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/lib/design-system"
 import { ProgressBar } from "./progress-bar"
-import { Button } from "@/components/ui/button"
+import { Button } from "@/lib/design-system"
 import { ArrowLeft, ArrowRight } from "lucide-react"
 import { useRouter } from "next/navigation"
 import { useFormState, FORM_STEPS } from "@/hooks/use-form-state"
+import { useEffect, useState } from "react"
 
 interface FormLayoutProps {
   children: ReactNode
@@ -18,6 +19,7 @@ interface FormLayoutProps {
   nextLabel?: string
   backLabel?: string
   hideProgress?: boolean
+  showNextButton?: boolean
 }
 
 export function FormLayout({
@@ -30,50 +32,65 @@ export function FormLayout({
   nextLabel = "Next",
   backLabel = "Back",
   hideProgress = false,
+  showNextButton = true,
 }: FormLayoutProps) {
   const router = useRouter()
   const { updateFormData } = useFormState()
+  const [isFromDashboard, setIsFromDashboard] = useState(false)
+
+  // Check if we're creating content from dashboard
+  useEffect(() => {
+    // Check if we've already stored this in the session
+    const fromDashboard = localStorage.getItem('wordjet_from_dashboard') === 'true'
+    
+    if (fromDashboard) {
+      setIsFromDashboard(true)
+    }
+  }, [])
 
   const handleNext = async () => {
-    // Si se proporciona onNext, verificamos si podemos proceder
+    // If onNext is provided, check if we can proceed
     if (onNext) {
       const canProceed = await Promise.resolve(onNext())
-      if (!canProceed) return // No procedemos si la validación falla
+      if (!canProceed) return // Don't proceed if validation fails
     }
 
-    // Calculamos el siguiente paso directamente
+    // Calculate the next step directly
     const nextStepIndex = currentStep + 1
     if (nextStepIndex < FORM_STEPS.length) {
-      // Actualizamos el currentStep en el estado del formulario
+      // Update the currentStep in the form state
       updateFormData({ currentStep: nextStepIndex })
       
-      // Navegamos directamente a la siguiente ruta
+      // Navigate directly to the next route
       const nextRoute = FORM_STEPS[nextStepIndex]
       router.push(`/create/${nextRoute}`)
     }
   }
 
   const handleBack = () => {
-    // Si se proporciona onBack, lo llamamos
+    // If onBack is provided, call it
     if (onBack) {
       onBack()
     }
 
-    // Calculamos el paso anterior directamente
+    // Calculate the previous step directly
     const prevStepIndex = currentStep - 1
     if (prevStepIndex >= 0) {
-      // Actualizamos el currentStep en el estado del formulario
+      // Update the currentStep in the form state
       updateFormData({ currentStep: prevStepIndex })
       
-      // Navegamos directamente a la ruta anterior
+      // Navigate directly to the previous route
       const prevRoute = FORM_STEPS[prevStepIndex]
       router.push(`/create/${prevRoute}`)
     }
   }
 
+  // Only show progress bar if we're NOT coming from the dashboard
+  const shouldShowProgress = !hideProgress && !isFromDashboard
+
   return (
     <div className="container max-w-3xl mx-auto py-8 px-4">
-      {!hideProgress && <ProgressBar currentStep={currentStep} className="mb-6" />}
+      {shouldShowProgress && <ProgressBar currentStep={currentStep} className="mb-6" />}
 
       <Card className="bg-card border-border">
         <CardHeader>
@@ -94,10 +111,12 @@ export function FormLayout({
               <div></div> // Empty div to maintain spacing
             )}
 
-            <Button onClick={handleNext} className="gap-2">
-              {nextLabel}
-              <ArrowRight className="h-4 w-4" />
-            </Button>
+            {showNextButton && (
+              <Button onClick={handleNext} className="gap-2">
+                {nextLabel}
+                <ArrowRight className="h-4 w-4" />
+              </Button>
+            )}
           </div>
         </CardContent>
       </Card>

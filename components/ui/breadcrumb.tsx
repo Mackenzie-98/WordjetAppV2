@@ -1,17 +1,9 @@
 import * as React from "react"
 import { Slot } from "@radix-ui/react-slot"
-import { ChevronRight, MoreHorizontal, Home } from "lucide-react"
+import { ChevronRight, MoreHorizontal, LayoutDashboardIcon } from "lucide-react"
 import Link from "next/link"
 
 import { cn } from "@/lib/utils"
-
-const Breadcrumb = React.forwardRef<
-  HTMLElement,
-  React.ComponentPropsWithoutRef<"nav"> & {
-    separator?: React.ReactNode
-  }
->(({ ...props }, ref) => <nav ref={ref} aria-label="breadcrumb" {...props} />)
-Breadcrumb.displayName = "Breadcrumb"
 
 const BreadcrumbList = React.forwardRef<
   HTMLOListElement,
@@ -126,8 +118,8 @@ export function Breadcrumb({ segments, className, ...props }: BreadcrumbProps) {
             href="/dashboard"
             className="flex items-center hover:text-foreground transition-colors"
           >
-            <Home className="h-4 w-4" />
-            <span className="sr-only">Home</span>
+            <LayoutDashboardIcon className="h-4 w-4" />
+            <span className="sr-only">Dashboard</span>
           </Link>
         </li>
         {segments.map((segment, index) => (
@@ -155,7 +147,6 @@ export function Breadcrumb({ segments, className, ...props }: BreadcrumbProps) {
 }
 
 export {
-  Breadcrumb,
   BreadcrumbList,
   BreadcrumbItem,
   BreadcrumbLink,

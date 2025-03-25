@@ -54,20 +54,10 @@ In conclusion, ${topic} is an important subject that deserves attention. This ${
 
   const handleSaveContent = () => {
     // In a real application, this would save the content to a database
-    // Automatically save content and redirect
     resetForm()
-    // Redirect directly to dashboard
+    // Redirigir al dashboard
     router.push("/dashboard")
   }
-
-  // Redirect directly to dashboard instead of showing editor
-  useEffect(() => {
-    // Simulating saving the content automatically
-    const timer = setTimeout(() => {
-      handleSaveContent()
-    }, 500)
-    return () => clearTimeout(timer)
-  }, [])
 
   return (
     <div className="container max-w-4xl mx-auto py-8 px-4">
@@ -88,9 +78,9 @@ In conclusion, ${topic} is an important subject that deserves attention. This ${
       {isLoading ? (
         <div className="flex flex-col items-center justify-center py-20">
           <Loader2 className="h-12 w-12 text-primary animate-spin mb-4" />
-          <h2 className="text-xl font-medium mb-2">Redirigiendo al dashboard...</h2>
+          <h2 className="text-xl font-medium mb-2">Generando tu contenido...</h2>
           <p className="text-muted-foreground text-center max-w-md">
-            Estamos guardando tu contenido. Serás redirigido en un momento.
+            Estamos creando tu contenido basado en tus especificaciones. Esto puede tomar un momento.
           </p>
         </div>
       ) : (

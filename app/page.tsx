@@ -1,7 +1,16 @@
+"use client"
+
 import Link from "next/link"
-import { Button } from "@/components/ui/button"
+import { Button } from "@/lib/design-system"
+import { useEffect } from "react"
 
 export default function Home() {
+  // Clear dashboard flag when homepage loads
+  useEffect(() => {
+    // Remove dashboard flag to ensure progress bar shows for "Get Started" flow
+    localStorage.removeItem('wordjet_from_dashboard')
+  }, [])
+  
   return (
     <div className="flex flex-col min-h-screen">
       <header className="border-b py-4">
@@ -11,8 +20,8 @@ export default function Home() {
             <Link href="/login">
               <Button variant="outline">Log in</Button>
             </Link>
-            <Link href="/dashboard">
-              <Button>Dashboard</Button>
+            <Link href="/create">
+              <Button variant="secondary">Get Started</Button>
             </Link>
           </div>
         </div>
@@ -26,7 +35,7 @@ export default function Home() {
           WordJet helps you create high-quality content in minutes, not hours. Powered by AI, designed for humans.
         </p>
         <div className="mt-10 flex flex-col sm:flex-row gap-4">
-          <Link href="/create/type">
+          <Link href="/create">
             <Button size="lg" className="px-8">
               Get Started
             </Button>

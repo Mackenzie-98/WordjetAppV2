@@ -1,4 +1,5 @@
 import type React from "react"
+import { ResizablePanelGroup } from "@/components/ui/resizable"
 
 export default function EditorLayout({
   children,
@@ -6,9 +7,12 @@ export default function EditorLayout({
   children: React.ReactNode
 }) {
   return (
-    <div className="flex flex-1 overflow-hidden h-full">
+    <ResizablePanelGroup 
+      direction="horizontal" 
+      className="h-screen w-full min-h-screen flex-1 overflow-hidden"
+    >
       {/* Main content area with children (editor) */}
       {children}
-    </div>
+    </ResizablePanelGroup>
   )
 } 

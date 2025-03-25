@@ -12,6 +12,10 @@ export function NewContentButton() {
   const handleClick = () => {
     // Reset the form data when starting a new content
     resetForm()
+    
+    // Mark that we're coming from dashboard
+    localStorage.setItem('wordjet_from_dashboard', 'true')
+    
     router.push("/create")
   }
 

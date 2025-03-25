@@ -1,0 +1,99 @@
+# WordJet Project Patterns & Conventions
+
+## Naming Conventions
+
+1. **React Components**:
+   - Use PascalCase for component files and function names
+   - Suffix page components with "Page" (e.g., `DashboardPage`)
+   - Suffix layout components with "Layout" (e.g., `FormLayout`)
+
+2. **Files and Directories**:
+   - Use kebab-case for file names except for React components
+   - Use descriptive, feature-based directory names
+   - Follow Next.js app router conventions for route organization
+
+3. **Hooks**:
+   - Prefix custom hooks with "use" (e.g., `useFormState`)
+   - Place hooks in the /hooks directory or co-locate with related components
+
+## Code Organization
+
+1. **Component Structure**:
+   - Client components must include "use client" directive at the top
+   - Import statements grouped by: React/Next.js, UI components, hooks, utils
+   - Maintain a logical order of component lifecycle methods
+   - Extract complex logic into custom hooks
+
+2. **Styling Approach**:
+   - Use Tailwind CSS utility classes directly in JSX
+   - Prefer shadcn/ui variants and sizes for consistent styling
+   - Follow mobile-first responsive design patterns
+   - Use className composition with clsx/twMerge for conditional styling
+
+3. **State Management**:
+   - Use React state for component-specific state
+   - Use the custom useFormState hook for multi-step form data
+   - Prefer composition of small, focused contexts over large global state
+
+## Form Handling Patterns
+
+1. **Multi-step Form Pattern**:
+   - Each form step is a separate route
+   - Form state is persisted in localStorage via useFormState hook
+   - Each step validates its own data before allowing progression
+   - Form completion follows a linear path but allows backward navigation
+
+2. **Validation Approach**:
+   - Use inline validation for immediate feedback
+   - Perform comprehensive validation on form submission
+   - Use clear, user-friendly error messages
+   - Maintain consistent validation UI across all forms
+
+## UI Component Usage
+
+1. **Button Variants**:
+   - Use "primary" for main actions
+   - Use "outline" for secondary actions
+   - Use "ghost" for subtle actions
+   - Use "link" for navigation actions
+   - Add "destructive" modifier for dangerous actions
+
+2. **Icon Usage**:
+   - Use Lucide React icons consistently
+   - Maintain consistent size (w-4 h-4 or w-5 h-5)
+   - Always include appropriate aria-label for standalone icons
+   - Use icons consistently for similar actions across the app
+
+3. **Layout Patterns**:
+   - Maintain consistent spacing using Tailwind's spacing scale
+   - Use grid for structured layouts, flex for one-dimensional layouts
+   - Maintain reasonable max-width constraints for readability
+   - Use consistent container padding across sections
+
+## Critical Implementation Paths
+
+1. **Form State Flow**:
+   - Form state is initialized in useFormState hook
+   - Each page updates form state via updateFormData
+   - Navigation between steps requires successful validation
+   - Form data is ultimately processed in the editor for content creation
+
+2. **Dashboard Organization**:
+   - Projects contain multiple content drafts
+   - Project management UI allows CRUD operations on projects
+   - Content is organized hierarchically (projects > drafts)
+   - Dashboard acts as the central navigation hub
+
+## Testing Requirements
+
+1. **Core User Journeys**:
+   - Complete content creation flow from type selection to editor
+   - Project creation, editing, and deletion
+   - Dashboard navigation and content management
+   - Form validation and error handling
+
+2. **Accessibility Testing**:
+   - Ensure keyboard navigation works throughout the application
+   - Verify screen reader compatibility for all interactive elements
+   - Check color contrast ratios meet WCAG 2.1 AA standards
+   - Test focus management in modal dialogs and complex components 

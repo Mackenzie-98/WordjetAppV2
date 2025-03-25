@@ -9,6 +9,7 @@ export interface ContentFormData {
   purpose?: string
   primaryKeyword?: string
   secondaryKeywords?: string[]
+  keywords?: string[]
   targetAudience?: string
   audienceKnowledgeLevel?: "beginner" | "intermediate" | "advanced"
   audienceInterests?: string[]
@@ -20,7 +21,7 @@ export interface ContentFormData {
   currentStep?: number
 }
 
-export const FORM_STEPS = ["create", "type", "audience", "style", "brief", "editor"]
+export const FORM_STEPS = ["create", "content-details", "audience", "style", "brief", "editor"]
 
 // Define a helper function to check if the form data has expired
 const isFormDataExpired = (formData: ContentFormData): boolean => {
@@ -34,6 +35,7 @@ export const useFormState = () => {
   const [formData, setFormData] = useState<ContentFormData>({
     currentStep: 0,
     lastUpdated: Date.now(),
+    keywords: []
   })
 
   // Load form data from localStorage on initial render
@@ -45,6 +47,10 @@ export const useFormState = () => {
           const parsedData = JSON.parse(storedData) as ContentFormData
           // Only use stored data if it hasn't expired
           if (!isFormDataExpired(parsedData)) {
+            // Ensure keywords exists
+            if (!parsedData.keywords) {
+              parsedData.keywords = []
+            }
             setFormData(parsedData)
             return
           }
@@ -57,6 +63,7 @@ export const useFormState = () => {
       setFormData({
         currentStep: 0,
         lastUpdated: Date.now(),
+        keywords: []
       })
     }
 
@@ -88,6 +95,7 @@ export const useFormState = () => {
     setFormData({
       currentStep: 0,
       lastUpdated: Date.now(),
+      keywords: []
     })
   }
 

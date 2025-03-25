@@ -1,6 +1,17 @@
 "use client"
 
-import { Button } from "@/components/ui/button"
+import { 
+  Button,
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+  Separator
+} from "@/lib/design-system"
 import {
   Bold,
   Italic,
@@ -19,9 +30,6 @@ import {
   Save,
   Sparkles,
 } from "lucide-react"
-import { Separator } from "@/components/ui/separator"
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 
 export function EditorToolbar() {
   return (
@@ -197,10 +205,10 @@ export function EditorToolbar() {
             <TooltipTrigger asChild>
               <Button variant="outline" size="sm" className="h-8 ml-2 gap-1">
                 <Save className="h-4 w-4" />
-                <span>Save</span>
+                <span>Publish</span>
               </Button>
             </TooltipTrigger>
-            <TooltipContent>Save Document</TooltipContent>
+            <TooltipContent>Publish Document</TooltipContent>
           </Tooltip>
         </div>
       </TooltipProvider>

@@ -155,7 +155,13 @@ export default function ProjectPage() {
           )}
         </div>
         <div className="flex items-center gap-2">
-          <Button variant="outline" size="sm" onClick={handleViewPublished}>
+          <Link href={`/create/type?projectId=${projectId}`}>
+            <Button className="gap-1.5">
+              <PlusCircle className="h-4 w-4" />
+              New Content
+            </Button>
+          </Link>
+          <Button variant="outline" onClick={handleViewPublished}>
             <LinkIcon className="h-4 w-4 mr-2" />
             View Published
           </Button>
@@ -204,12 +210,6 @@ export default function ProjectPage() {
         <TabsContent value="drafts" className="space-y-4">
           <div className="flex items-center justify-between mb-2">
             <h2 className="text-lg font-medium">Project Drafts</h2>
-            <Link href={`/create/type?projectId=${projectId}`}>
-              <Button size="sm" className="gap-1.5">
-                <PlusCircle className="h-4 w-4" />
-                New Content
-              </Button>
-            </Link>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -221,8 +221,8 @@ export default function ProjectPage() {
                       <FileText className="h-5 w-5 text-primary" />
                     </div>
                     <div>
-                      <h3 className="font-medium">{draft.name}</h3>
-                      <p className="text-sm text-muted-foreground">Last edited 2 days ago</p>
+                      <h3 className="text-sm font-medium">{draft.name}</h3>
+                      <p className="text-xs text-muted-foreground">Last edited 2 days ago</p>
                     </div>
                   </CardContent>
                 </Card>

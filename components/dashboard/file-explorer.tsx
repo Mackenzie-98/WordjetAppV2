@@ -3,16 +3,16 @@
 import { useState } from "react"
 import { ChevronRight, ChevronDown, FileText, Folder, FolderOpen, MoreHorizontal, Plus, PlusCircle } from "lucide-react"
 import { cn } from "@/lib/utils"
-import { Button } from "@/components/ui/button"
-import Link from "next/link"
-import { usePathname } from "next/navigation"
-import {
+import { 
+  Button,
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
+  DropdownMenuTrigger
+} from "@/lib/design-system"
+import Link from "next/link"
+import { usePathname } from "next/navigation"
 
 type File = {
   id: string
@@ -179,7 +179,7 @@ export function FileExplorer({ projectId, files, className }: FileExplorerProps)
   }
 
   return (
-    <div className={cn("py-2", className)}>
+    <div className={cn("py-2 h-full flex flex-col", className)}>
       <div className="flex items-center justify-between px-3 mb-2">
         <span className="text-xs font-medium text-muted-foreground uppercase tracking-wider">Project Files</span>
         <div className="flex items-center">
@@ -191,7 +191,7 @@ export function FileExplorer({ projectId, files, className }: FileExplorerProps)
           </Button>
         </div>
       </div>
-      <div className="space-y-0.5">
+      <div className="space-y-0.5 overflow-y-auto flex-1 no-scrollbar">
         {files.map(item => renderItem(item))}
       </div>
     </div>

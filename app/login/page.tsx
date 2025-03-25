@@ -2,8 +2,7 @@
 
 import { useEffect, useState, useRef } from "react"
 import { useRouter, useSearchParams } from "next/navigation"
-import { Button } from "@/components/ui/button"
-import { Card } from "@/components/ui/card"
+import { Button, Card } from "@/lib/design-system"
 import { motion } from "framer-motion"
 import { useAuthContext } from "@/components/auth/auth-provider"
 
@@ -144,7 +143,12 @@ export default function LoginPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.3 }}
-            className="max-w-xs mx-auto w-full text-center"
+            style={{
+              maxWidth: "20rem",
+              margin: "0 auto",
+              width: "100%",
+              textAlign: "center"
+            }}
           >
             <div className="mb-6">
               <h1 className="text-3xl font-bold tracking-tighter">WORDJET_</h1>
@@ -222,9 +226,14 @@ export default function LoginPage() {
             {/* Content lines animation */}
             <div className="space-y-4">
               {lineWidths.map((width, index) => (
-                <motion.div 
-                  key={index} 
-                  className="h-3 bg-primary/10 rounded-full overflow-hidden"
+                <motion.div
+                  key={index}
+                  style={{
+                    height: "0.75rem",
+                    borderRadius: "9999px",
+                    overflow: "hidden",
+                    backgroundColor: "rgba(var(--primary) / 0.1)"
+                  }}
                   initial={{ width: 0 }}
                   animate={{ width: `${width}%` }}
                   transition={{ duration: 1, ease: "easeOut" }}

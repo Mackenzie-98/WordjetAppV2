@@ -1,10 +1,8 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs"
-import { Send, Bot, User, Sparkles, FileText, Search, Wand2, X, Maximize2, Minimize2 } from "lucide-react"
+import { Button, Input, Tabs, TabsList, TabsTrigger, TabsContent } from "@/lib/design-system"
+import { Send, Bot, User, Sparkles, FileText, Search, Wand2, X } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { useMediaQuery } from "@/hooks/use-media-query"
 
@@ -18,15 +16,8 @@ export function AIChatPanel() {
   const [isOpen, setIsOpen] = useState(true)
   const [activeTab, setActiveTab] = useState("chat")
   const [input, setInput] = useState("")
-  const [isExpanded, setIsExpanded] = useState(false)
   const isMobile = useMediaQuery("(max-width: 768px)")
-  const [messages, setMessages] = useState<Message[]>([
-    {
-      id: "1",
-      role: "assistant",
-      content: "Hi there! I'm your AI assistant. How can I help with your content today?",
-    },
-  ])
+  const [messages, setMessages] = useState<Message[]>([])
 
   const handleSend = () => {
     if (!input.trim()) return
@@ -70,52 +61,52 @@ export function AIChatPanel() {
   }
 
   return (
-    <div
-      className={cn(
-        "flex flex-col border-l bg-card transition-all duration-300 ease-in-out",
-        isExpanded ? "w-full md:w-1/2 lg:w-1/3" : isMobile ? "w-full" : "w-80",
-        isMobile && "fixed inset-0 z-50"
-      )}
-    >
+    <div className="flex flex-col border-l bg-card h-full w-full">
       <div className="flex items-center justify-between p-3 border-b">
         <h3 className="text-sm font-medium">AI Assistant</h3>
         <div className="flex items-center">
-          <Button variant="ghost" size="icon" className="h-8 w-8 mr-1" onClick={() => setIsExpanded(!isExpanded)}>
-            {isExpanded ? <Minimize2 className="h-4 w-4" /> : <Maximize2 className="h-4 w-4" />}
-          </Button>
           <Button variant="ghost" size="icon" className="h-8 w-8" onClick={() => setIsOpen(false)}>
             <X className="h-4 w-4" />
           </Button>
         </div>
       </div>
 
-      <Tabs value={activeTab} onValueChange={setActiveTab} className="flex-1 flex flex-col">
-        <TabsList className="grid grid-cols-3 p-1 m-2">
+      <Tabs value={activeTab} onValueChange={setActiveTab} className="flex-1 flex flex-col h-full">
+        <TabsList className="grid grid-cols-3 p-1 mx-3 my-2">
           <TabsTrigger value="chat">Chat</TabsTrigger>
           <TabsTrigger value="insights">Insights</TabsTrigger>
           <TabsTrigger value="tools">Tools</TabsTrigger>
         </TabsList>
 
-        <TabsContent value="chat" className="flex-1 flex flex-col p-0 m-0">
-          <div className="flex-1 overflow-y-auto p-3 space-y-4">
-            {messages.map((message) => (
-              <div
-                key={message.id}
-                className={cn(
-                  "flex w-max max-w-[80%] rounded-lg p-3",
-                  message.role === "user"
-                    ? "ml-auto bg-primary text-primary-foreground"
-                    : "bg-muted"
-                )}
-              >
+        <TabsContent value="chat" className="flex-1 flex flex-col p-0 m-0 h-full overflow-hidden">
+          <div className="flex-1 overflow-y-auto p-3 space-y-4 no-scrollbar">
+            {messages.length === 0 ? (
+              <div className="h-full flex items-center justify-center text-muted-foreground text-center p-4">
                 <div>
-                  <p className="text-sm">{message.content}</p>
+                  <Bot className="h-12 w-12 mx-auto mb-4 opacity-20" />
+                  <p>Ask me anything about your content</p>
                 </div>
               </div>
-            ))}
+            ) : (
+              messages.map((message) => (
+                <div
+                  key={message.id}
+                  className={cn(
+                    "flex w-max max-w-[80%] rounded-lg p-3",
+                    message.role === "user"
+                      ? "ml-auto bg-primary text-primary-foreground"
+                      : "bg-muted"
+                  )}
+                >
+                  <div>
+                    <p className="text-sm">{message.content}</p>
+                  </div>
+                </div>
+              ))
+            )}
           </div>
 
-          <div className="p-3 pt-2">
+          <div className="p-3 pt-2 border-t">
             <form
               onSubmit={(e) => {
                 e.preventDefault()
@@ -139,9 +130,9 @@ export function AIChatPanel() {
         {/* Insights tab content */}
         <TabsContent
           value="insights"
-          className="flex-1 flex flex-col h-[400px] data-[state=inactive]:hidden"
+          className="flex-1 flex flex-col h-full overflow-hidden"
         >
-          <div className="flex-1 overflow-y-auto p-3">
+          <div className="flex-1 overflow-y-auto p-3 no-scrollbar">
             <div className="space-y-4">
               <div className="border rounded-lg p-3">
                 <h4 className="font-medium text-sm mb-1">Writing Clarity</h4>
@@ -179,9 +170,9 @@ export function AIChatPanel() {
         {/* Tools tab content */}
         <TabsContent
           value="tools"
-          className="flex-1 flex flex-col h-[400px] data-[state=inactive]:hidden"
+          className="flex-1 flex flex-col h-full overflow-hidden"
         >
-          <div className="flex-1 overflow-y-auto p-3">
+          <div className="flex-1 overflow-y-auto p-3 no-scrollbar">
             <div className="space-y-3">
               <Button variant="outline" className="w-full justify-start gap-2">
                 <Sparkles className="h-4 w-4 text-primary" />
@@ -190,7 +181,7 @@ export function AIChatPanel() {
 
               <Button variant="outline" className="w-full justify-start gap-2">
                 <FileText className="h-4 w-4 text-primary" />
-                <span>Generate Outline</span>
+                <span>Generate Draft</span>
               </Button>
 
               <Button variant="outline" className="w-full justify-start gap-2">

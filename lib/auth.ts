@@ -21,12 +21,15 @@ export enum AuthStatus {
 export const auth = {
   // Verificar si hay un token de autenticación
   isAuthenticated: (): boolean => {
-    return !!cookies.get("authToken");
+    // MOCK: Siempre devolver true para pruebas
+    return true; // Durante pruebas, siempre autenticado
+    // return !!cookies.get("authToken"); // Comentado para pruebas
   },
 
   // Obtener usuario actual (simulado)
   getUser: (): User | null => {
-    if (!auth.isAuthenticated()) return null;
+    // MOCK: Siempre devolver un usuario para pruebas
+    // if (!auth.isAuthenticated()) return null;
 
     // Obtener datos del localStorage (simulado)
     const userInitials = storage.get("userInitials", "JD");
