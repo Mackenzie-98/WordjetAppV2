@@ -1,5 +1,6 @@
 "use client"
 
+import { useState } from "react"
 import { 
   Button,
   Tooltip,
@@ -30,8 +31,21 @@ import {
   Save,
   Sparkles,
 } from "lucide-react"
+import { SocialMediaPublishDialog } from "./social-media-publish-dialog"
 
 export function EditorToolbar() {
+  const [publishDialogOpen, setPublishDialogOpen] = useState(false)
+  
+  // This would typically come from your editor state
+  const getEditorContent = () => {
+    return "This is sample content from the editor that would be published to social media platforms. In a real implementation, you would extract the actual content from your editor state or component."
+  }
+
+  // Open the publish dialog
+  const handlePublishClick = () => {
+    setPublishDialogOpen(true)
+  }
+
   return (
     <div className="border-b p-1 bg-card flex items-center flex-wrap gap-0.5">
       <TooltipProvider delayDuration={300}>
@@ -203,7 +217,12 @@ export function EditorToolbar() {
 
           <Tooltip>
             <TooltipTrigger asChild>
-              <Button variant="outline" size="sm" className="h-8 ml-2 gap-1">
+              <Button 
+                variant="outline" 
+                size="sm" 
+                className="h-8 ml-2 gap-1"
+                onClick={handlePublishClick}
+              >
                 <Save className="h-4 w-4" />
                 <span>Publish</span>
               </Button>
@@ -212,6 +231,13 @@ export function EditorToolbar() {
           </Tooltip>
         </div>
       </TooltipProvider>
+
+      {/* Social Media Publish Dialog */}
+      <SocialMediaPublishDialog 
+        isOpen={publishDialogOpen}
+        onClose={() => setPublishDialogOpen(false)}
+        content={getEditorContent()}
+      />
     </div>
   )
 }

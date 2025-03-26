@@ -83,7 +83,7 @@ export function DashboardHeader() {
   const handleSignOut = () => {
     // In a real app, this would handle sign out logic
     document.cookie = "authToken=; path=/; max-age=0"
-    router.push("/login")
+    router.push("/")
   }
 
   return (

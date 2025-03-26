@@ -92,12 +92,6 @@ export default function DashboardPage() {
         <div className="flex items-center gap-4">
           <h1 className="text-2xl font-semibold">Dashboard</h1>
         </div>
-        <Link href="/create">
-          <Button size="sm" className="gap-1.5">
-            <PlusCircle className="h-4 w-4" />
-            New Project
-          </Button>
-        </Link>
       </div>
 
       <div>
@@ -105,9 +99,11 @@ export default function DashboardPage() {
         <section>
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-lg font-medium">Projects</h2>
-            <Link href="/dashboard/projects" className="text-sm text-primary flex items-center gap-1">
-              <span>View All</span>
-              <ArrowRight className="h-3.5 w-3.5" />
+            <Link href="/create">
+              <Button className="gap-1.5">
+                <PlusCircle className="h-4 w-4" />
+                New Project
+              </Button>
             </Link>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
